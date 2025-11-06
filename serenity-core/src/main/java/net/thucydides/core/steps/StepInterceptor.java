@@ -15,6 +15,7 @@ import net.serenitybdd.model.IgnoredStepException;
 import net.serenitybdd.model.PendingStepException;
 import net.serenitybdd.model.environment.ConfiguredEnvironment;
 import net.serenitybdd.model.exceptions.SerenityManagedException;
+import net.serenitybdd.model.exceptions.TechnicalStepFailureError;
 import net.thucydides.core.steps.events.*;
 import net.thucydides.core.steps.interception.DynamicExampleStepInterceptionListener;
 import net.thucydides.core.steps.interception.StepInterceptionListener;
