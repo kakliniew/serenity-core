@@ -488,7 +488,7 @@ public class StepInterceptor implements MethodErrorReporter, Interceptor {
                 webDriverException.getMessage()
             );
             error = new TechnicalStepFailureError(errorMessage, webDriverException);
-            logStepFailure(obj, method, args, technicalError);
+            logStepFailure(obj, method, args, error);
             result = appropriateReturnObject(obj, method);
         } catch (Throwable testErrorException) {
             if (TestFramework.support().isAssumptionViolatedException(testErrorException)) {
