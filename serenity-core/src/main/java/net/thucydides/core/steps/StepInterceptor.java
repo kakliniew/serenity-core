@@ -2,6 +2,7 @@ package net.thucydides.core.steps;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
+import org.openqa.selenium.WebDriverException;
 import net.bytebuddy.implementation.bind.annotation.*;
 import net.serenitybdd.annotations.*;
 import net.serenitybdd.core.Serenity;
@@ -478,6 +479,15 @@ public class StepInterceptor implements MethodErrorReporter, Interceptor {
         } catch (AssertionError failedAssertion) {
             error = failedAssertion;
             logStepFailure(obj, method, args, failedAssertion);
+            result = appropriateReturnObject(obj, method);
+        } catch (WebDriverException webDriverException) {
+            String errorMessage = String.format(
+                "Step failed due to a WebDriver's technical error (%s): %s",
+                webDriverException.getClass().getSimpleName(),
+                webDriverException.getMessage()
+            );
+            error = new TechnicalStepFailureError(errorMessage, webDriverException);
+            logStepFailure(obj, method, args, technicalError);
             result = appropriateReturnObject(obj, method);
         } catch (Throwable testErrorException) {
             if (TestFramework.support().isAssumptionViolatedException(testErrorException)) {
